@@ -42,7 +42,7 @@ def wavwrite(timeseries,file_name):
 	
 	
 # filtering() is used to do the actual filtering, and involves setting your options for the final process. 
-def filtering(path,source, golden,lowpass=None, highpass=None,freqshift=None)
+def filtering(path,source, golden,lowpass=None, highpass=None,freqshift=None):
 	channel_base = source[0]
 	timestart_base = source[1]
 	timeend_base = source[2]
