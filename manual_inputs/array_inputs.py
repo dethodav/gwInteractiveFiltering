@@ -1,6 +1,6 @@
 if __name__ == '__main__':
 
-  from gwInteractiveFiltering import filtering
+  from gwInteractiveFiltering.filtering import filter_defs
   from scipy import *
 
 
@@ -24,6 +24,6 @@ if __name__ == '__main__':
 
     path = str(time[item]) + '_' + str(glitch_number[item])+ '.wav'
 
-    filtering(path,source, golden)
+    filter_defs.filtering(path,source, golden)
 
     item = item + 1
