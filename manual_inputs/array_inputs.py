@@ -6,7 +6,7 @@ if __name__ == '__main__':
 
   source_file = raw_input(' What is the file name? ')
 
-  channel,time,glitch_class = loadtxt(str(source_file),unpack=True, usecols= [0,1,2], skiprows = 1)
+  glitch_number,time,channel = loadtxt(str(source_file),unpack=True, usecols= [0,12,13], skiprows = 1)
 
   time_start = time - 5
   time_end = time + 5
@@ -18,12 +18,12 @@ if __name__ == '__main__':
 
   while (item < len(time)):
 
-    source[0] = channel[item]
+    source[0] = str(channel[item])
     source[1] = time_start[item]
     source[2] = time_end[item]
 
-    path = './'+str(glitch_class[item])+'/'+ str(time[item]) + '.wav'
+    path = './'+ str(time[item]) + '_' + str(glitch_number[item])+ '.wav'
 
     filtering(path,source, golden)
 
-  item = item + 1
+    item = item + 1
