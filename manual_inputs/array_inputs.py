@@ -22,7 +22,7 @@ if __name__ == '__main__':
     source[1] = time_start[item]
     source[2] = time_end[item]
 
-    path = './'+ str(time[item]) + '_' + str(glitch_number[item])+ '.wav'
+    path = str(time[item]) + '_' + str(glitch_number[item])+ '.wav'
 
     filtering(path,source, golden)
 
