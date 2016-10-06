@@ -32,10 +32,42 @@ def crosswhiten(timeseries,timeseries_second):
 
 # wavwrite() is used to set the amplitude and rate of the auido and then creates the .wav file
 def wavwrite(timeseries,file_name):
-        path = '/home/derek.davis/public_html/' + file_name
         newrate = 4096
         timeseries_down = timeseries.resample(newrate)
         if ( max(timeseries_down.value) > 1):
-		print "Max value exceeded! Audio damped by factor of " + str( max(timeseries_down.value))
 		timeseries_down  = 1 * timeseries_down.value / (max(timeseries_down.value))
-        wav.write(path,newrate,timeseries_down)
+	elif ( max(timeseries_down.value) < .01):
+		timeseries_down  = .01 * timeseries_down.value / (max(timeseries_down.value))
+        wav.write(file_name,newrate,timeseries_down)
+	
+	
+# filtering() is used to do the actual filtering, and involves setting your options for the final process. 
+def filtering(path,source, golden,lowpass=None, highpass=None,freqshift=None)
+	channel_base = source[0]
+	timestart_base = source[1]
+	timeend_base = source[2]
+	timeseries_base = TimeSeries.fetch(channel_base, timestart_base, timeend_base)
+	
+	channel_gold = golden[0]
+	timestart_gold = golden[1]
+	timeend_gold = golden[2]
+	timeseries_gold = TimeSeries.fetch(channel_gold, timestart_gold, timeend_gold)
+	
+	timeseries_filtered = crosswhiten(timeseries_base,timeseries_gold)
+	
+	if (lowpass != None):
+		timeseries_filtered = timeseries_filtered.lowpass(lowpass)
+		
+	if (highpass != None):
+		timeseries_filtered = timeseries_filtered.highpass(highpass)
+		
+	if (freqshift != None):
+		timeseries_filtered.sample_rate = timeseries_filtered.sample_rate * freqshift
+
+	wavwrite(timeseries_filtered,path)
+	
+	
+	
+	
+	
+	
