@@ -8,7 +8,7 @@ if __name__ == '__main__':
 
   source_file = raw_input(' What is the file name? ')
 
-  glitch_number,time,channel = genfromtxt(str(source_file),dtype=(int,float,str),unpack=True, usecols= [0,12,13], skiprows = 1)
+  glitch_number,time,channel = genfromtxt(str(source_file),dtype=(int,int,int),unpack=True, usecols= [0,12,13], skiprows = 1)
 
   time_start = time - 5
   time_end = time + 5
