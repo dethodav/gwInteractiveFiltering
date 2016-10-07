@@ -16,7 +16,7 @@ if __name__ == '__main__':
   time_end = (time) + 5
 
   item = int(0)
-  source = zeros(3)
+  source = ['',0,0]
 
   golden = ['L1:GDS-CALIB_STRAIN',1126593017,1126593037]
 
