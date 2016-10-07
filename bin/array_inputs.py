@@ -25,14 +25,11 @@ if __name__ == '__main__':
     source[0] = channel[item]
     source[1] = time_start[item]
     source[2] = time_end[item]
-    
-    print source[0]
-    print source[1]
-    print source[2]
-    print glitch_number[item]
 
     path = str(time[item]) + '_' + str(glitch_number[item])+ '.wav'
 
     filter_defs.filtering(path,source, golden)
 
+    print item
+    
     item = item + 1
