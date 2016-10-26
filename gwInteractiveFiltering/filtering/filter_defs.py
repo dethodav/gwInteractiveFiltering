@@ -62,7 +62,8 @@ def filtering(path,source, golden,lowpass=None, highpass=None,freqshift=None):
 		timeseries_filtered = timeseries_filtered.highpass(highpass)
 		
 	if (freqshift != None):
-		timeseries_filtered.value = timeseries_filtered.value * cos( ( 2 * pi * freqshift ) * (timeseries_filtered.time - timestart_base) )
+		timeseries_filtered = (timeseries_filtered * 
+		                            cos( ( 2 * pi * freqshift ) * (timeseries_filtered.time.value - timestart_base) ) )
 
 	wavwrite(timeseries_filtered,path)
 	
