@@ -17,6 +17,7 @@
 
 from  gwpy.timeseries import TimeSeries
 import scipy.io.wavfile as wav
+import numpy as np
  
 
 # whiten() is used to whiten a time series against itself
@@ -63,7 +64,7 @@ def filtering(path,source, golden,lowpass=None, highpass=None,freqshift=None):
 		
 	if (freqshift != None):
 		timeseries_filtered = (timeseries_filtered * 
-		                            cos( ( 2 * pi * freqshift ) * (timeseries_filtered.time.value - timestart_base) ) )
+		                            np.cos( ( 2 * np.pi * freqshift ) * (timeseries_filtered.time.value - timestart_base) ) )
 
 	wavwrite(timeseries_filtered,path)
 	
