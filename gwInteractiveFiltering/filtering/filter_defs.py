@@ -37,7 +37,7 @@ def wavwrite(timeseries,file_name):
         timeseries_down = timeseries.resample(newrate)
         if ( max(timeseries_down.value) > 1):
 		timeseries_down  = 1 * timeseries_down.value / (max(timeseries_down.value))
-	elif ( max(timeseries_down.value) < .1):
+	elif ( max(timeseries_down.value) < .2):
 		timeseries_down  = .2 * timeseries_down.value / (max(timeseries_down.value))
         wav.write(file_name,newrate,timeseries_down)
 	
