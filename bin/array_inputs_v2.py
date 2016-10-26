@@ -23,8 +23,8 @@ if __name__ == '__main__':
   item = int(0)
   source = ['',0,0]
   
-  golden1_time = 126593027
-  golden2_time = 1000000000 #not chosen yet
+  golden1_time = 1126593027
+  golden2_time = 1132948862
 
   golden1 = ['L1:GDS-CALIB_STRAIN',(golden1_time - 10) , (golden1_time + 10)]
   golden2 = ['L1:GDS-CALIB_STRAIN',(golden2_time - 10) , (golden2_time + 10)]
@@ -41,9 +41,9 @@ if __name__ == '__main__':
     else:
       golden = golden2
 
-      path = str(time[item]) + '_' + str(glitch_number[item]) + '.wav'
+    path = str(time[item]) + '_' + str(glitch_number[item]) + '.wav'
 
-      filter_defs.filtering(path,source, golden)
+    filter_defs.filtering(path,source, golden)
 
     print item
     
