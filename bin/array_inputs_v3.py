@@ -4,13 +4,15 @@
 # times to help account for changes in the overall 
 # noise curve throughout the run.
 
+from gwInteractiveFiltering.filtering import filter_defs
+from scipy import *
+import multiprocessing
+
+def filter_timeout(path_t,source_t,golden_t,freqshift_t):
+  filter_defs.filtering(path_t,source_t,golden_t,freqshift=freqshift_t)
+
 
 if __name__ == '__main__':
-
-  from gwInteractiveFiltering.filtering import filter_defs
-  from scipy import *
-  import multiprocessing
-
 
   source_file = raw_input(' What is the file name? ')
 
@@ -45,7 +47,7 @@ if __name__ == '__main__':
     path = str(time[item]) + '_' + str(glitch_number[item]) + '.wav'
     
     #Using multiprocessing in order to allow fetching to time out after 30 sec
-    p = multiprocessing.Process(target=filtering,args=(path,source,golden,freqshift=60,))
+    p = multiprocessing.Process(target=filter_timeout,args=(path,source,golden,60,))
     p.start()
     p.join(30)
     if p.is_alive():
