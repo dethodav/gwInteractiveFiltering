@@ -9,6 +9,7 @@ if __name__ == '__main__':
 
   from gwInteractiveFiltering.filtering import filter_defs
   from scipy import *
+  import multiprocessing
 
 
   source_file = raw_input(' What is the file name? ')
@@ -42,9 +43,14 @@ if __name__ == '__main__':
       golden = golden2
 
     path = str(time[item]) + '_' + str(glitch_number[item]) + '.wav'
-
-    filter_defs.filtering(path,source, golden, freqshift=60)
-
-    print item
     
+    #Using multiprocessing in order to allow fetching to time out after 30 sec
+    p = multiprocessing.Process(target=filter_defs.filtering, name="Filtering", args=(path,source, golden, freqshift=60))
+    p.start()
+    p.join(30)
+    if p.is_alive():
+      print "Fetching time out: Could not download item " + item
+      p.terminate()
+      p.join()
+      
     item = item + 1
