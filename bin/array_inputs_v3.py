@@ -51,7 +51,7 @@ if __name__ == '__main__':
     p.start()
     p.join(30)
     if p.is_alive():
-      print "Fetching time out: Could not download item " + item
+      print "Fetching time out: Could not download item " + str(item)
       p.terminate()
       p.join()
       
