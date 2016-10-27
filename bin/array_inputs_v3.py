@@ -45,7 +45,7 @@ if __name__ == '__main__':
     path = str(time[item]) + '_' + str(glitch_number[item]) + '.wav'
     
     #Using multiprocessing in order to allow fetching to time out after 30 sec
-    p = multiprocessing.Process(target=filter_defs.filtering,args=(path,source,golden,freqshift=60,))
+    p = multiprocessing.Process(target=filtering,args=(path,source,golden,freqshift=60,))
     p.start()
     p.join(30)
     if p.is_alive():
