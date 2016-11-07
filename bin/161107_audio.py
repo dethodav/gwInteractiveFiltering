@@ -25,13 +25,20 @@ if __name__ == '__main__':
   source2 = ['L1:GDS-CALIB_STRAIN',(source2_time - 10) , (source2_time + 10)]
   source3 = ['H1:GDS-CALIB_STRAIN',(source3_time - 10) , (source3_time + 10)]
   
+  filter_defs.filtering('L1_BHNS_+0Hz_self.wav',source1,source1,freqshift=0)
+  filter_defs.filtering('L1_BHNS_+60Hz_self.wav',source1,source1,freqshift=60)
+  filter_defs.filtering('L1_BNS_+0Hz_self.wav',source2,source2,freqshift=0)
+  filter_defs.filtering('L1_BNS_+60Hz_self.wav',source2,source2,freqshift=60)
+  filter_defs.filtering('H1_BNS_+0Hz_self.wav',source3,source3,freqshift=0)
+  filter_defs.filtering('H1_BNS_+60Hz_self.wav',source3,source3,freqshift=60)
   
-  filter_defs.filtering('L1_BHNS_+0Hz.wav',source1,goldenL,freqshift=0)
-  filter_defs.filtering('L1_BHNS_+60Hz.wav',source1,goldenL,freqshift=60)
-  filter_defs.filtering('L1_BNS_+0Hz.wav',source2,goldenL,freqshift=0)
-  filter_defs.filtering('L1_BNS_+60Hz.wav',source2,goldenL,freqshift=60)
-  filter_defs.filtering('H1_BNS_+0Hz.wav',source3,goldenH,freqshift=0)
-  filter_defs.filtering('H1_BNS_+60Hz.wav',source3,goldenH,freqshift=60)
+  
+  #filter_defs.filtering('L1_BHNS_+0Hz.wav',source1,goldenL,freqshift=0)
+  #filter_defs.filtering('L1_BHNS_+60Hz.wav',source1,goldenL,freqshift=60)
+  #filter_defs.filtering('L1_BNS_+0Hz.wav',source2,goldenL,freqshift=0)
+  #filter_defs.filtering('L1_BNS_+60Hz.wav',source2,goldenL,freqshift=60)
+  #filter_defs.filtering('H1_BNS_+0Hz.wav',source3,goldenH,freqshift=0)
+  #filter_defs.filtering('H1_BNS_+60Hz.wav',source3,goldenH,freqshift=60)
   
   
   #--------------------
