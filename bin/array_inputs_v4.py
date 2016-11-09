@@ -44,7 +44,7 @@ if __name__ == '__main__':
     else:
       golden = golden2
 
-    path = str(time[item]) + '_' + str(glitch_number[item]) + '.wav'
+    path = str(time[item]) + '.wav'
 
     filter_defs.filtering(path,source, golden, freqshift=60)
 
