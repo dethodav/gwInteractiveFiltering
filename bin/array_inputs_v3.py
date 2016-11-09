@@ -35,7 +35,7 @@ if __name__ == '__main__':
 
   while (item < len(time)):
 
-    source[0] = channel[item]
+    source[0] = 'L1:GDS-CALIB_STRAIN'
     source[1] = time_start[item]
     source[2] = time_end[item]
     
