@@ -44,7 +44,7 @@ if __name__ == '__main__':
     else:
       golden = golden2
 
-    path = str(time[item]) + '_' + str(glitch_number[item]) + '.wav'
+    path = str(time[item]) + '.wav'
     
     #Using multiprocessing in order to allow fetching to time out after 30 sec
     p = multiprocessing.Process(target=filter_timeout,args=(path,source,golden,60,))
