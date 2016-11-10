@@ -26,8 +26,8 @@ if __name__ == '__main__':
   source2 = ['L1:GDS-CALIB_STRAIN',(source2_time - 10) , (source2_time + 10)]
   source3 = ['H1:GDS-CALIB_STRAIN',(source3_time - 10) , (source3_time + 10)]
   
-  goldenL_time = TimeSeries.fetch(goldenL_time[0], goldenL_time[1], goldenL_time[2])
-  goldenH_time = TimeSeries.fetch(goldenH_time[0], goldenH_time[1], goldenH_time[2])
+  goldenL_time = TimeSeries.fetch(goldenL[0], goldenL[1], goldenL[2])
+  goldenH_time = TimeSeries.fetch(goldenH[0], goldenH[1], goldenH[2])
   
   source1_time = TimeSeries.fetch(source1[0], source1[1], source1[2])
   source2_time = TimeSeries.fetch(source2[0], source2[1], source2[2])
