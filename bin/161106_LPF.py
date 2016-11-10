@@ -37,16 +37,16 @@ if __name__ == '__main__':
   timeseries_filtered = timeseries_filtered.lowpass(400)
   timeseries_filtered = timeseries_filtered.highpass(30)
   timeseries_filtered = filter_defs.LPF(source1_time,goldenL_time)
-  wavwrite(timeseries_filtered,'L1_BHNS_+0Hz_LPF.wav)
+  wavwrite(timeseries_filtered,'L1_BHNS_+0Hz_LPF.wav')
   
   timeseries_filtered = source2_time 
   timeseries_filtered = timeseries_filtered.lowpass(1000)
   timeseries_filtered = timeseries_filtered.highpass(30)
   timeseries_filtered = filter_defs.LPF(source2_time,goldenL_time)
-  wavwrite(timeseries_filtered,'L1_BNS_+0Hz_LPF.wav)
+  wavwrite(timeseries_filtered,'L1_BNS_+0Hz_LPF.wav')
   
   timeseries_filtered = source3_time  
   timeseries_filtered = timeseries_filtered.lowpass(1000)
   timeseries_filtered = timeseries_filtered.highpass(30)
   timeseries_filtered = filter_defs.LPF(source3_time,goldenH_time)
-  wavwrite(timeseries_filtered,'H1_BNS_+0Hz_LPF.wav)
+  wavwrite(timeseries_filtered,'H1_BNS_+0Hz_LPF.wav')
