@@ -192,9 +192,9 @@ def LPF(timeseries,baseseries,order=2**12):
 	newsig = np.zeros(len(inputsig))
 
 	if len(testsig.value) < order:
-		order = len(testsig.value)
+		order = len(testsig)
 
-	coef1 = lpc_ref(np.array(testsig.value),order)
+	coef1 = lpc_ref(np.array(testsig),order)
 	
 	endpoint = len(insputsig)
 
