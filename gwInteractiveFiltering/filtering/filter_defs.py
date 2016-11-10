@@ -205,7 +205,7 @@ def LPF(timeseries,baseseries,order=2**12):
 	    for m in range(0,order):
 		if (n-m) < 0:
 		    new_x_n = 0
-		elif:
+		else:
 		    new_x_n = coef1[m]*inputsig[n-m]
 		x_n = x_n + new_x_n
 	    newsig[n] = x_n
