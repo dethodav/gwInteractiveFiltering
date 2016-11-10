@@ -6,6 +6,7 @@
 
 
 from gwInteractiveFiltering.filtering import filter_defs
+from  gwpy.timeseries import TimeSeries
 from scipy import *
 
 if __name__ == '__main__':
