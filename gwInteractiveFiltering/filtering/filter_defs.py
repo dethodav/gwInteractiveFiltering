@@ -196,7 +196,7 @@ def LPF(timeseries,baseseries,order=2**12):
 
 	coef1 = lpc_ref(np.array(testsig),order)
 	
-	endpoint = len(insputsig)
+	endpoint = len(inputsig)
 
 	#%%
 	for n in range(0,endpoint-1):
