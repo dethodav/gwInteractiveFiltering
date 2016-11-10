@@ -189,7 +189,7 @@ def LPF(timeseries,baseseries,order=2**12):
 	inputsig = timeseries.value
 	testsig = baseseries.value
 
-	newsig = np.zeros(len(power))
+	newsig = np.zeros(len(inputsig))
 
 	if len(testsig.value) < order:
 		order = len(testsig.value)
