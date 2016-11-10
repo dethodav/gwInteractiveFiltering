@@ -191,7 +191,7 @@ def LPF(timeseries,baseseries,order=2**12):
 
 	newsig = np.zeros(len(inputsig))
 
-	if len(testsig.value) < order:
+	if len(testsig) < order:
 		order = len(testsig)
 
 	coef1 = lpc_ref(np.array(testsig),order)
