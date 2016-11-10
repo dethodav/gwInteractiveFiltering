@@ -19,8 +19,8 @@ if __name__ == '__main__':
   source3_time = source2_time
 
   
-  goldenL = ['L1:GDS-CALIB_STRAIN',(goldenL_time - 20) , (goldenL_time + 20)]
-  goldenH = ['H1:GDS-CALIB_STRAIN',(goldenH_time - 20) , (goldenH_time + 20)]
+  goldenL = ['L1:GDS-CALIB_STRAIN',(goldenL_time - 10) , (goldenL_time + 10)]
+  goldenH = ['H1:GDS-CALIB_STRAIN',(goldenH_time - 10) , (goldenH_time + 10)]
   
   source1 = ['L1:GDS-CALIB_STRAIN',(source1_time - 10) , (source1_time + 10)]
   source2 = ['L1:GDS-CALIB_STRAIN',(source2_time - 10) , (source2_time + 10)]
