@@ -200,13 +200,13 @@ def LPF(timeseries,baseseries,order=2**12):
 
 	#%%
 	for n in range(0,endpoint-1):
-	    x_n = 0
-	    #x_n = power[n]
+	    #x_n = 0
+	    x_n = power[n]
 	    for m in range(0,order):
 		if (n-m) < 0:
 		    new_x_n = 0
 		else:
-		    new_x_n = coef1[m]*inputsig[n-m]
+		    new_x_n = -coef1[m]*inputsig[n-m]
 		x_n = x_n + new_x_n
 	    newsig[n] = x_n
 
