@@ -201,7 +201,7 @@ def LPF(timeseries,baseseries,order=2**12):
 	#%%
 	for n in range(0,endpoint-1):
 	    #x_n = 0
-	    x_n = power[n]
+	    x_n = inputsig[n]
 	    for m in range(0,order):
 		if (n-m) < 0:
 		    new_x_n = 0
