@@ -65,14 +65,16 @@ def filtering(path,source, golden,lowpass=None, highpass=None,freqshift=None):
 		timeseries_filtered = timeseries_filtered.highpass(highpass)
 		
 	if (freqshift != None):
-		timeseries_filtered = frequency_shift(timeseries_filtered,float(freqshift))
+		print type(freqshift)
+		print type(timeseries_filtered)
+		timeseries_filtered = shift(timeseries_filtered,freqshift)
 
 	wavwrite(timeseries_filtered,path)
 	
 
 	
 
-def frequency_shift(timeseries,fshift):
+def shift(timeseries,fshift):
 	data = timeseries.value
 	sample_rate = timeseries.sample_rate
 	time_length = len(data)/float(sample_rate)
