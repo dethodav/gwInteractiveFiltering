@@ -83,7 +83,7 @@ def shift(timeseries,fshift):
 	nbins = int(fshift/df)
 	
 	freq_rep = np.fft.rfft(data)
-	shifted_freq = numpy.zeros(len(freq_rep))
+	shifted_freq = np.zeros(len(freq_rep))
 	for i in range(0,len(freq_rep)):
 		if 0<(i-nbins)<len(freq_rep):
 		       shifted_freq[i]=freq_rep[i-nbins]
