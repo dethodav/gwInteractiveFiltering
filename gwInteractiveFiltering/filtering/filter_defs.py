@@ -49,12 +49,12 @@ def filtering(path,source, golden,lowpass=None, highpass=None,freqshift=None):
 	channel_base = source[0]
 	timestart_base = source[1]
 	timeend_base = source[2]
-	timeseries_base = TimeSeries.fetch(channel_base, timestart_base, timeend_base)
+	timeseries_base = TimeSeries.get(channel_base, timestart_base, timeend_base)
 	
 	channel_gold = golden[0]
 	timestart_gold = golden[1]
 	timeend_gold = golden[2]
-	timeseries_gold = TimeSeries.fetch(channel_gold, timestart_gold, timeend_gold)
+	timeseries_gold = TimeSeries.get(channel_gold, timestart_gold, timeend_gold)
 	
 	timeseries_filtered = crosswhiten(timeseries_base,timeseries_gold)
 	
