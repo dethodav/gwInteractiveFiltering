@@ -76,7 +76,7 @@ def filtering(path,source, golden,lowpass=None, highpass=None,freqshift=None):
 
 def shift(timeseries,fshift):
 	data = timeseries.value
-	sample_rate = timeseries.sample_rate
+	sample_rate = timeseries.sample_rate.value
 	time_length = len(data)/float(sample_rate)
 	df = 1.0/time_length
 	nbins = int(fshift/df)
