@@ -88,6 +88,7 @@ def shift(timeseries,fshift):
 		if 0<(i-nbins)<len(freq_rep):
 		       shifted_freq[i]=freq_rep[i-nbins]
 	out = np.fft.irfft(shifted_freq)
+	print out
 	out_real = np.real(out)
 	for i in range(0,len(out_real)-1):
         	timeseries.value[i] = out_real[i]
