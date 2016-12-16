@@ -37,10 +37,10 @@ def crosswhiten(timeseries,timeseries_second):
 def wavwrite(timeseries,file_name):
         newrate = 4096
         timeseries_down = timeseries.resample(newrate)
-        if ( max(timeseries_down.value) > 1):
-		timeseries_down  = 1 * timeseries_down.value / (max(timeseries_down.value))
-	elif ( max(timeseries_down.value) < .2):
-		timeseries_down  = .2 * timeseries_down.value / (max(timeseries_down.value))
+        if ( max(timeseries_down.value) > .1):
+		timeseries_down  = .1 * timeseries_down.value / (max(timeseries_down.value))
+	elif ( max(timeseries_down.value) < .001):
+		timeseries_down  = .001 * timeseries_down.value / (max(timeseries_down.value))
         wav.write(file_name,newrate,timeseries_down)
 	
 	
