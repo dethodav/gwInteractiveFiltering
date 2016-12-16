@@ -49,7 +49,7 @@ if __name__ == '__main__':
     #Using multiprocessing in order to allow fetching to time out after 30 sec
     p = multiprocessing.Process(target=filter_timeout,args=(path,source,golden,60,))
     p.start()
-    p.join(100)
+    p.join(200)
     if p.is_alive():
       print "Fetching time out: Could not download item " + str(item)
       p.terminate()
