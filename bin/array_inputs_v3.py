@@ -20,8 +20,8 @@ if __name__ == '__main__':
   time = genfromtxt(str(source_file),dtype=int,unpack=True, usecols= [12], skiprows = 1)
   channel = genfromtxt(str(source_file),dtype=str,unpack=True, usecols= [13], skiprows = 1)
 
-  time_start = (time) - 5
-  time_end = (time) + 5
+  time_start = (time) - 8
+  time_end = (time) + 8
 
   item = int(0)
   source = ['',0,0]
@@ -29,8 +29,8 @@ if __name__ == '__main__':
   golden1_time = 1126593027
   golden2_time = 1132948862
 
-  golden1 = ['L1:GDS-CALIB_STRAIN',(golden1_time - 10) , (golden1_time + 10)]
-  golden2 = ['L1:GDS-CALIB_STRAIN',(golden2_time - 10) , (golden2_time + 10)]
+  golden1 = ['L1:GDS-CALIB_STRAIN',(golden1_time - 8) , (golden1_time + 8)]
+  golden2 = ['L1:GDS-CALIB_STRAIN',(golden2_time - 8) , (golden2_time + 8)]
   
 
   while (item < len(time)):
