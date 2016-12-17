@@ -93,7 +93,7 @@ def shift(timeseries,fshift):
 
 
 def hil_shift(timeseries,fshift):
-	data = timeseries.value
+	x = timeseries.value
 	sample_rate = timeseries.sample_rate.value
 	dt = 1/sample_rate
 	
