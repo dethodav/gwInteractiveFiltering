@@ -101,7 +101,7 @@ def hil_shift(timeseries,fshift):
     	N_padded = 2**nextpow2(N_orig)
    	t = np.arange(0, N_padded)
     	out_real = (sig.hilbert(np.hstack((x, np.zeros(N_padded-N_orig, x.dtype))))*np.exp(2j*np.pi*fshift*dt*t))[:N_orig].real
-	timeseries.value = timeseries.value*0 + out_real
+	timeseries.data = out_real
 		
 	return timeseries
 		
