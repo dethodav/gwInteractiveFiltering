@@ -65,7 +65,7 @@ def filtering(path,source, golden,lowpass=None, highpass=None,freqshift=None):
 		timeseries_filtered = timeseries_filtered.highpass(highpass)
 		
 	if (freqshift != None):
-		timeseries_filtered = shift(timeseries_filtered,freqshift)
+		timeseries_filtered = hil_shift(timeseries_filtered,freqshift)
 
 	wavwrite(timeseries_filtered,path)
 	
@@ -90,6 +90,27 @@ def shift(timeseries,fshift):
         	timeseries.value[i] = out_real[i]
 		       
         return timeseries
+
+
+def hil_shift(timeseries,fshift):
+	data = timeseries.value
+	sample_rate = timeseries.sample_rate.value
+	dt = 1/sample_rate
+	
+	N_orig = len(x)
+    	N_padded = 2**nextpow2(N_orig)
+   	t = np.arange(0, N_padded)
+    	out_real = (sig.hilbert(np.hstack((x, np.zeros(N_padded-N_orig, x.dtype))))*np.exp(2j*np.pi*f_shift*dt*t))[:N_orig].real
+	for i in range(0,len(out_real)-1):
+        	timeseries.value[i] = out_real[i]
+		
+	return timeseries
+		
+
+def nextpow2(x):
+    """Return the first integer N such that 2**N >= abs(x)"""
+
+    return int(np.ceil(np.log2(np.abs(x))))
 	
 	
 	
