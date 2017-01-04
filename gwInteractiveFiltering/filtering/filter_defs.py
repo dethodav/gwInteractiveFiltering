@@ -117,7 +117,7 @@ def nextpow2(x):
 
 # time_expansion() is used to increase the time length of an audio file
 # without changing the frequency content
-def time_expansion(timeseries,time_factor)
+def time_expansion(timeseries,time_factor):
 	sample_rate = timeseries.sample_rate
 	timeseries.sample_rate = timeseries.sample_rate / time_factor
 	timeseries_down = timeseries.resample(sample_rate)
