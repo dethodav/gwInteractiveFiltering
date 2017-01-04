@@ -71,7 +71,8 @@ def filtering(path,source, golden,lowpass=None, highpass=None,freqshift=None):
 	
 
 	
-
+# shift() is used to frequency shift the spectrum of the file by manually 
+# changing the bins in the frequency domain
 def shift(timeseries,fshift):
 	data = timeseries.value
 	sample_rate = timeseries.sample_rate.value
@@ -91,7 +92,8 @@ def shift(timeseries,fshift):
 		       
         return timeseries
 
-
+# hil_shift() is used to frequency shift the file by calculating the 
+# analytic and then multiplying by a complex exponential
 def hil_shift(timeseries,fshift):
 	x = timeseries.value
 	sample_rate = timeseries.sample_rate.value
@@ -105,11 +107,24 @@ def hil_shift(timeseries,fshift):
 		
 	return timeseries
 		
-
+# nextpow2() is used to append the file with zeroes until the file
+# has length 2^n, reducing computing time for the fft
 def nextpow2(x):
     """Return the first integer N such that 2**N >= abs(x)"""
 
     return int(np.ceil(np.log2(np.abs(x))))
+
+
+# time_expansion() is used to increase the time length of an audio file
+# without changing the frequency content
+def time_expansion(timeseries,time_factor)
+	sample_rate = timeseries.sample_rate
+	timeseries.sample_rate = timeseries.sample_rate / time_factor
+	timeseries_down = timeseries.resample(sample_rate)
+	
+	return timeseries_down
+	
+	
 	
 	
 	
