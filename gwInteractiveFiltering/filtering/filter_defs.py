@@ -114,16 +114,38 @@ def nextpow2(x):
 
     return int(np.ceil(np.log2(np.abs(x))))
 
-
-# time_expansion() is used to increase the time length of an audio file
+# expand() stretches the sound by a factor `f` 
 # without changing the frequency content
-def time_expansion(timeseries,time_factor):
+# utilizes phase vocoder method
+def expand(timeseries,f,fftlength=.1,overlap=.025):  
+	data = timeseries.value
 	sample_rate = timeseries.sample_rate
-	timeseries.sample_rate = timeseries.sample_rate / time_factor
-	timeseries_down = timeseries.resample(sample_rate)
-	
-	return timeseries_down
-	
+	window_length = fftlength*sample_rate
+	overlap_length = overlap*sample_rate
+	phase  = np.zeros(window_length)
+   	hanning_window = np.hanning(window_length)
+    	out = np.zeros( len(data) /f + window_window)
+
+    	for i in np.arange(0, len(data)-(window_length+overlap_length), overlap_length*f):
+		# two potentially overlapping subarrays
+		a1 = data[i: i + window_length]
+		a2 = data[i + overlap_length: i + window_length + overlap_length]
+
+		# resynchronize the second array on the first
+		s1 =  np.fft.fft(hanning_window * a1)
+		s2 =  np.fft.fft(hanning_window * a2)
+		phase = (phase + np.angle(s2/s1)) % 2*np.pi
+		a2_average = np.fft.ifft(np.abs(s2)*np.exp(1j*phase))
+
+		# add to output
+		i2 = int(i/f)
+		out[i2 : i2 + window_size] += hanning_window*a2_average
+	for i in range(0,len(out)-1):
+        	timeseries.value[i] = out[i]
+		       
+        return timeseries
+
+
 	
 	
 	
