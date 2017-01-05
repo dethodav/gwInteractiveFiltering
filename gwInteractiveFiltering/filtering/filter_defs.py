@@ -119,14 +119,14 @@ def nextpow2(x):
 # utilizes phase vocoder method
 def expand(timeseries,f,fftlength=.1,overlap=.025):  
 	data = timeseries.value
-	sample_rate = timeseries.sample_rate.value
-	window_length = int(fftlength*sample_rate)
-	overlap_length = int(overlap*sample_rate)
+	samp_rate = timeseries.sample_rate.value
+	window_length = int(fftlength*samp_rate)
+	overlap_length = int(overlap*samp_rate)
 	phase  = np.zeros(window_length)
    	hanning_window = np.hanning(window_length)
-    	out = np.zeros( len(data) /f)
+    	out = np.zeros( len(data) * f)
 
-    	for i in np.arange(0, len(data)-(window_length+overlap_length), overlap_length*f):
+    	for i in np.arange(0, len(data)-(window_length+overlap_length), overlap_length/f):
 		# two potentially overlapping subarrays
 		a1 = data[i: i + window_length]
 		a2 = data[i + overlap_length: i + window_length + overlap_length]
@@ -138,10 +138,9 @@ def expand(timeseries,f,fftlength=.1,overlap=.025):
 		a2_average = np.fft.ifft(np.abs(s2)*np.exp(1j*phase))
 
 		# add to output
-		i2 = int(i/f)
+		i2 = int(i*f)
 		out[i2 : i2 + window_length] += hanning_window*a2_average
-	for i in range(0,len(out)-1):
-        	timeseries.value[i] = out[i]
+	timeseries_output = TimeSeries(out,sample_rate=samp_rate)
 		       
         return timeseries
 
