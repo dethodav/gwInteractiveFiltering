@@ -119,7 +119,7 @@ def nextpow2(x):
 # utilizes phase vocoder method
 def expand(timeseries,f,fftlength=.1,overlap=.025):  
 	data = timeseries.value
-	sample_rate = timeseries.sample_rate
+	sample_rate = timeseries.sample_rate.value
 	window_length = fftlength*sample_rate
 	overlap_length = overlap*sample_rate
 	phase  = np.zeros(window_length)
