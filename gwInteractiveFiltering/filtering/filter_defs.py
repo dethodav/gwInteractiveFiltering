@@ -120,8 +120,8 @@ def nextpow2(x):
 def expand(timeseries,f,fftlength=.1,overlap=.025):  
 	data = timeseries.value
 	sample_rate = timeseries.sample_rate.value
-	window_length = fftlength*sample_rate
-	overlap_length = overlap*sample_rate
+	window_length = int(fftlength*sample_rate)
+	overlap_length = int(overlap*sample_rate)
 	phase  = np.zeros(window_length)
    	hanning_window = np.hanning(window_length)
     	out = np.zeros( len(data) /f + window_length)
