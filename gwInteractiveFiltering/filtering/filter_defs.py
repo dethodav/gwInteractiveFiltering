@@ -139,7 +139,7 @@ def expand(timeseries,f,fftlength=.1,overlap=.025):
 
 		# add to output
 		i2 = int(i/f)
-		out[i2 : i2 + window_size] += hanning_window*a2_average
+		out[i2 : i2 + window_length] += hanning_window*a2_average
 	for i in range(0,len(out)-1):
         	timeseries.value[i] = out[i]
 		       
