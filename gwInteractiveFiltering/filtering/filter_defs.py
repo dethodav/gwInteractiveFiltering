@@ -151,7 +151,7 @@ def expand(timeseries,f,fftlength=.1,overlap=.025):
 	overlap_length = int(overlap*samp_rate)
 	phase  = np.zeros(window_length/2 + 1)
    	hanning_window = np.hanning(window_length)
-    	out = np.zeros( len(data) * f)
+    	out = np.zeros( int(len(data) * f))
 
     	for i in np.arange(0, len(data)-(window_length+overlap_length), overlap_length):
 		# two potentially overlapping subarrays
