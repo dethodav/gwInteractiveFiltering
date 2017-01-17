@@ -155,7 +155,7 @@ def expand(timeseries,f,fftlength=.1,overlap=.025):
 	
 	dw = 2*np.pi / float(fftlength)
 	w = np.linspace(0,(2*np.pi * float(samp_rate) / 2), (window_length/2) + 1)
-	t = overlap * f
+	t = overlap * (f-1)
 	
 
     	for i in np.arange(0, len(data)-(window_length+overlap_length), overlap_length):
