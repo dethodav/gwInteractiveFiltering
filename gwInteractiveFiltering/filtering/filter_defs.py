@@ -159,10 +159,10 @@ def expand(timeseries,f,fftlength=.1,overlap=.025):
 		a2 = data[i + overlap_length: i + window_length + overlap_length]
 
 		# resynchronize the second array on the first
-		s1 =  np.fft.fft(hanning_window * a1)
-		s2 =  np.fft.fft(hanning_window * a2)
+		s1 =  np.fft.rfft(hanning_window * a1)
+		s2 =  np.fft.rfft(hanning_window * a2)
 		phase = (phase + np.angle(s2/s1)) % 2*np.pi
-		a2_average = np.fft.ifft(np.abs(s2)*np.exp(1j*phase))
+		a2_average = np.fft.irfft(np.abs(s2)*np.exp(1j*phase))
 
 		# add to output
 		i2 = int(i*f)
