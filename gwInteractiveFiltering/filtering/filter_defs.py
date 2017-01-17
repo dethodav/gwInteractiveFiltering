@@ -152,6 +152,11 @@ def expand(timeseries,f,fftlength=.1,overlap=.025):
 	phase  = np.zeros((window_length/2) + 1)
    	hanning_window = np.hanning(window_length)
     	out = np.zeros( round(len(data) * f))
+	
+	dw = 2*np.pi / float(fftlength)
+	w = np.arrange(0,(2*np.pi * float(samp_rate) / 2) + 1, dw)
+	t = overlap * f
+	
 
     	for i in np.arange(0, len(data)-(window_length+overlap_length), overlap_length):
 		# two potentially overlapping subarrays
@@ -161,7 +166,7 @@ def expand(timeseries,f,fftlength=.1,overlap=.025):
 		# resynchronize the second array on the first
 		s1 =  np.fft.rfft(hanning_window * a1)
 		s2 =  np.fft.rfft(hanning_window * a2)
-		phase = (phase + np.angle(s2)-np.angle(s1)) % 2*np.pi
+		phase = (phase + np.angle(s1) + w*t - np.angle(s2)) % 2*np.pi
 		a2_average = np.fft.irfft((s2)*np.exp(-1j*phase))
 
 		# add to output
