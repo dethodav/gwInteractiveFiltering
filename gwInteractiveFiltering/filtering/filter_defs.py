@@ -92,8 +92,8 @@ def shift(timeseries,fshift):
 	"""
 	
 	data = timeseries.value
-	sample_rate = timeseries.sample_rate.value
-	time_length = len(data)/float(sample_rate)
+	samp_rate = timeseries.sample_rate.value
+	time_length = len(data)/float(samp_rate)
 	df = 1.0/time_length
 	nbins = int(fshift/df)
 	
@@ -104,10 +104,10 @@ def shift(timeseries,fshift):
 		       shifted_freq[i]=freq_rep[i-nbins]
 	out = np.fft.irfft(shifted_freq)
 	out_real = np.real(out)
-	for i in range(0,len(out_real)-1):
-        	timeseries.value[i] = out_real[i]
+
+	timeseries_output = TimeSeries(out_real,sample_rate=samp_rate)
 		       
-        return timeseries
+        return timeseries_output
 
 
 def hil_shift(timeseries,fshift):
@@ -116,16 +116,17 @@ def hil_shift(timeseries,fshift):
 	"""
 	
 	x = timeseries.value
-	sample_rate = timeseries.sample_rate.value
-	dt = 1/sample_rate
+	samp_rate = timeseries.sample_rate.value
+	dt = 1/samp_rate
 	
 	N_orig = len(x)
     	N_padded = 2**nextpow2(N_orig)
    	t = np.arange(0, N_padded)
     	out_real = (sig.hilbert(np.hstack((x, np.zeros(N_padded-N_orig, x.dtype))))*np.exp(2j*np.pi*fshift*dt*t))[:N_orig].real
-	timeseries.value[0:N_orig] = out_real[0:N_orig]		
+	
+	timeseries_output = TimeSeries(out_real,sample_rate=samp_rate)
 		
-	return timeseries
+	return timeseries_output
 		
 # nextpow2() is used to append the file with zeroes until the file
 # has length 2^n, reducing computing time for the fft
