@@ -149,7 +149,7 @@ def expand(timeseries,f,fftlength=.1,overlap=.025):
 	samp_rate = timeseries.sample_rate.value
 	window_length = int(fftlength*samp_rate)
 	overlap_length = int(overlap*samp_rate)
-	phase  = np.zeros(window_length)
+	phase  = np.zeros(window_length/2 + 1)
    	hanning_window = np.hanning(window_length)
     	out = np.zeros( len(data) * f)
 
