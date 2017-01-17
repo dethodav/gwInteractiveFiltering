@@ -153,7 +153,7 @@ def expand(timeseries,f,fftlength=.1,overlap=.025):
    	hanning_window = np.hanning(window_length)
     	out = np.zeros( len(data) * f)
 
-    	for i in np.arange(0, len(data)-(window_length+overlap_length), overlap_length/f):
+    	for i in np.arange(0, len(data)-(window_length+overlap_length), overlap_length):
 		# two potentially overlapping subarrays
 		a1 = data[i: i + window_length]
 		a2 = data[i + overlap_length: i + window_length + overlap_length]
