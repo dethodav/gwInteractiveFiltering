@@ -139,7 +139,7 @@ def nextpow2(x):
     return int(np.ceil(np.log2(np.abs(x))))
 
 
-def expand(timeseries,f,fftlength=.1,overlap=.025):
+def expand(timeseries,f,fftlength=.1,hop=.025):
 	"""expand() stretches the sound by a factor `f` 
 	without changing the frequency content
 	utilizes phase vocoder method
@@ -148,26 +148,32 @@ def expand(timeseries,f,fftlength=.1,overlap=.025):
 	data = timeseries.value
 	samp_rate = timeseries.sample_rate.value
 	window_length = (fftlength*samp_rate)-( (fftlength*samp_rate) % 2)
-	overlap_length = round(overlap*samp_rate)
+	hop_length = round(hop*samp_rate)
 	phase  = np.zeros((window_length/2) + 1)
    	hanning_window = np.hanning(window_length)
     	out = np.zeros( round(len(data) * f))
 	
-	dw = 2*np.pi / float(fftlength)
 	w = np.linspace(0,(2*np.pi * float(samp_rate) / 2), (window_length/2) + 1)
-	t = overlap * (f-1)
+	t_stretch = hop * (f)
 	
 
-    	for i in np.arange(0, len(data)-(window_length+overlap_length), overlap_length):
+    	for i in np.arange(0, len(data)-(window_length+hop_length), hop_length):
 		# two potentially overlapping subarrays
 		a1 = data[i: i + window_length]
-		a2 = data[i + overlap_length: i + window_length + overlap_length]
+		a2 = data[i + hop_length: i + window_length + hop_length]
 
-		# resynchronize the second array on the first
+		# compute frequency spectra for each chunk
 		s1 =  np.fft.rfft(hanning_window * a1)
 		s2 =  np.fft.rfft(hanning_window * a2)
-		phase = (phase + (np.angle(s1) - np.angle(s2)) * f) % 2*np.pi
-		a2_average = np.fft.irfft((s2)*np.exp(-1j*phase))
+		
+		# compute phase adjustment
+		dw = ( (np.angle(s2) - np.angle(s1)) / hop ) - w
+		w_wrapped = ( (dw + np.pi) % (2 * np.pi) ) - np.pi
+		w_true = w + w_wrapped
+		
+		# resynchronize the second array on the first
+		phase = (phase + t_stretch * w_true) % (2 * np.pi)
+		a2_average = np.fft.irfft(np.abs(s2)*np.exp(1j*phase))
 
 		# add to output
 		i2 = int(i*f)
