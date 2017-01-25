@@ -146,38 +146,51 @@ def expand(timeseries,f,fftlength=.1,hop=.025):
 	"""
 	
 	data = timeseries.value
-	samp_rate = timeseries.sample_rate.value
-	window_length = (fftlength*samp_rate)-( (fftlength*samp_rate) % 2)
-	hop_length = round(hop*samp_rate)
-	phase  = np.zeros((window_length/2) + 1)
-   	hanning_window = np.hanning(window_length)
-    	out = np.zeros( round(len(data) * f))
+	samp_rate = float(timeseries.sample_rate.value) 
+	window_length = (fftlength*samp_rate)-( (fftlength*samp_rate) % 2) 
+	hop_length = round(hop*samp_rate) 
+	hop_time = (hop_length / samp_rate)
+   	hanning_window = sig.hanning(window_length)
 	
-	w = np.linspace(0,(2*np.pi * float(samp_rate) / 2), (window_length/2) + 1)
-	t_stretch = hop * (f)
+	out_length = int(hop_length*f) 
+	segments = np.arange(0, len(data)-(window_length+hop_length), hop_length)
+	num_segemnts = len(segments) 
+    	out = np.zeros(out_length * num_segemnts + (window_length))
 	
+	w = np.linspace(0,(2 * np.pi * samp_rate / 2), (window_length/2) + 1)
+	out_time = out_length / samp_rate
+	
+	#set up 0th chunk
+	a0 = data[0:window_length]
+	s0 =  np.fft.rfft(a0)# * hanning_window)
+	phase = np.angle(s0)    
+	a0_average = np.fft.irfft(s0)
+	i2 = 0
+	out[i2 : i2 + window_length] += a0_average*hanning_window
 
-    	for i in np.arange(0, len(data)-(window_length+hop_length), hop_length):
+    	for i in segments:
 		# two potentially overlapping subarrays
 		a1 = data[i: i + window_length]
 		a2 = data[i + hop_length: i + window_length + hop_length]
 
 		# compute frequency spectra for each chunk
-		s1 =  np.fft.rfft(hanning_window * a1)
-		s2 =  np.fft.rfft(hanning_window * a2)
-		
+		s1 =  np.fft.rfft(a1)# * hanning_window)
+		s2 =  np.fft.rfft(a2)# * hanning_window)
+
 		# compute phase adjustment
-		dw = ( (np.angle(s2) - np.angle(s1)) / hop ) - w
+		dw = ( (np.angle(s2) - np.angle(s1)) / (hop_time) ) - (w)
 		w_wrapped = ( (dw + np.pi) % (2 * np.pi) ) - np.pi
 		w_true = w + w_wrapped
 		
 		# resynchronize the second array on the first
-		phase = (phase + t_stretch * w_true) % (2 * np.pi)
-		a2_average = np.fft.irfft(np.abs(s2)*np.exp(1j*phase))
+		phase = (phase + out_time * w_true) % (2 * np.pi)
+		a2_average = np.fft.irfft(abs(s2)*np.exp(1j*phase))
 
 		# add to output
-		i2 = int(i*f)
-		out[i2 : i2 + window_length] += hanning_window*a2_average
+		i2 = i2+out_length
+		out[i2 : i2 + window_length] += a2_average*hanning_window
+	
+	# create new timeseries to output
 	timeseries_output = TimeSeries(out,sample_rate=samp_rate)
 		       
         return timeseries_output
